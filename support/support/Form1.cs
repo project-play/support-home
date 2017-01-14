@@ -22,12 +22,12 @@ namespace support
 
         public Form1()
         {
-            
+
             InitializeComponent();
 
             MySqlConnection conn;
 
-            
+
             try
             {
                 conn = new MySqlConnection();
@@ -39,7 +39,7 @@ namespace support
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
 
         }
 
@@ -55,12 +55,12 @@ namespace support
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
 
@@ -96,31 +96,49 @@ namespace support
 
         public void Selectmysql(string what, string table)
         {
-            MySqlConnection conn;
-            MySqlCommand cmd;
-
-            conn = new MySqlConnection();
-            cmd = new MySqlCommand();
-
-            conn.ConnectionString = myConnectionString;
-
-            try
+            // TODO: fix that nobody can login with null
+            string str = "bsebt16";
+            MySqlConnection connection1 = new MySqlConnection(this.myConnectionString);
+            MySqlCommand command = connection1.CreateCommand();
+            connection1.Open();
+            command.CommandText = "SELECT * FROM aninfo WHERE id='1'";
+            bool flag = false;
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                conn.Open();
-                cmd.Connection = conn;
-
-                cmd.CommandText = "SELECT * FROM 'aninfo'";
-                
-
-
-
+                string str3 = "";
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    str3 = str3 + reader.GetValue(i).ToString() + ", ";
+                }
+                Console.WriteLine(str3);
+                if (str3.Contains(this.textBox1.Text) && textBox1.Text != null)
+                {
+                    if (str3.Contains(this.textBox2.Text) && textBox2.Text != null)
+                    {
+                        flag = false;
+                        base.Hide();
+                        new Form2().ShowDialog();
+                    }
+                    else
+                    {
+                        flag = true;
+                    }
+                }
+                else
+                {
+                    flag = true;
+                }
             }
-            catch (MySqlException ex)
+            if (flag)
             {
-                MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
+                MessageBox.Show("Fehler beim Anmelden bitte \x00fcberpr\x00fcfe deine Login daten\noder deine Internetverbindung ansonste kontaktiere Ren\x00e9");
             }
         }
+
+
+
 
         public void insertargs(string table, string arg1, string arg2, string value1, string value2)
         {
@@ -146,13 +164,19 @@ namespace support
                 MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            insertargs("aninfo","names","pw","patrik","vampir11");
+            insertargs("aninfo", "names", "pw", "patrik", "vampir11");
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
+
 }
