@@ -50,7 +50,7 @@ namespace support
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Selectmysql("*", "aninfo");
+            Selectmysql("*", "aninfo", "id", "1");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -94,14 +94,14 @@ namespace support
 
 
 
-        public void Selectmysql(string what, string table)
+        public void Selectmysql(string what, string table, string where, string arg)
         {
             // TODO: fix that nobody can login with null
-            string str = "bsebt16";
+            
             MySqlConnection connection1 = new MySqlConnection(this.myConnectionString);
             MySqlCommand command = connection1.CreateCommand();
             connection1.Open();
-            command.CommandText = "SELECT * FROM aninfo WHERE id='1'";
+            command.CommandText = "SELECT " + what + " FROM " + table + " WHERE " + where + "='" + arg + "'";
             bool flag = false;
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -112,6 +112,7 @@ namespace support
                     str3 = str3 + reader.GetValue(i).ToString() + ", ";
                 }
                 Console.WriteLine(str3);
+                
                 if (str3.Contains(this.textBox1.Text) && textBox1.Text != null)
                 {
                     if (str3.Contains(this.textBox2.Text) && textBox2.Text != null)
@@ -135,42 +136,29 @@ namespace support
                 flag = false;
                 MessageBox.Show("Fehler beim Anmelden bitte \x00fcberpr\x00fcfe deine Login daten\noder deine Internetverbindung ansonste kontaktiere Ren\x00e9");
             }
+            connection1.Close();
         }
 
 
 
 
-        public void insertargs(string table, string arg1, string arg2, string value1, string value2)
+        private void insertargs(string table, string arg1, string arg2, string arg3, string value1, string value2, string value3)
         {
 
-            MySqlConnection conn;
-            MySqlCommand cmd;
-
-            conn = new MySqlConnection();
-            cmd = new MySqlCommand();
-
-            conn.ConnectionString = myConnectionString;
-
-            try
-            {
-                conn.Open();
-                cmd.Connection = conn;
-                string qry = "INSERT INTO " + table + "(" + arg1 + ", " + arg2 + ") VALUES(" + value1 + "," + value2 + ")";
-                cmd.CommandText = "INSERT INTO " + table + "(" + arg1 + ", " + arg2 + ") VALUES(" + value1 + "," + value2 + ")";
+            MySqlConnection connection1 = new MySqlConnection(this.myConnectionString);
+            MySqlCommand command = connection1.CreateCommand();
+            connection1.Open();
+            string qry = "INSERT INTO " + table + " (" + arg1 + ", " + arg2 + ", " + arg3 + ") VALUES('" + value1 + "', '" + value2 + "', '" + value3 + "')";
+                command.CommandText = "INSERT INTO " + table + " (" + arg1 + ", " + arg2 + ", " + arg3 + ") VALUES('" + value1 + "', '" + value2 + "', '" + value3 + "')";
                 Console.Write(qry);
+            connection1.Close();
             }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Error " + ex.Number + " has occurred: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
+           
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            insertargs("aninfo", "names", "pw", "patrik", "vampir11");
-
+            insertargs("aninfo", "names", "pw", "id", textBox1.Text, textBox2.Text, "1");
+           
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
