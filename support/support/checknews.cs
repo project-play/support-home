@@ -30,44 +30,46 @@ namespace support
 
         private void selectnews()
         {
-          //  Console.WriteLine("1");
+         // Console.WriteLine("1");
             Form2 f2 = new Form2();
             
 
                
-              //  Console.WriteLine("2");
+             // Console.WriteLine("2");
                 MySqlConnection connection1 = new MySqlConnection(this.myConnectionString);
 
                     MySqlCommand command = connection1.CreateCommand();
                     connection1.Open();
                     command.CommandText = "SELECT * FROM news WHERE an='rene'";
-                   // Console.WriteLine("3");
+                 //  Console.WriteLine("3");
                     MySqlDataReader reader = command.ExecuteReader();
-                   // Console.WriteLine("4");
+                  // Console.WriteLine("4");
                     while (reader.Read())
                     {
-                      //  Console.WriteLine("5");
+                      // Console.WriteLine("5");
                         string str7 = "";
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             str7 = str7 + reader.GetValue(i).ToString() + ", ";
                         }
-                       // Console.WriteLine("6");
+                      // Console.WriteLine("6");
                         Console.WriteLine(str7);
                         MessageBox.Show(str7);
                         
-                       // Console.WriteLine("7");
+                      // Console.WriteLine("7");
                     }
             connection1.Close();
             for (int i = 0; i < 2000; i++)
             {
-                Console.WriteLine(i.ToString());
+                //Console.WriteLine(i.ToString());
                 if (i == 1999)
                 {
+                  //  delete1();
                     check();
+                    delete1();
                 }
             }
-            delete1();
+            
 
 
           //  Console.WriteLine("8");
@@ -160,13 +162,15 @@ namespace support
             connection1.Close();
             for (int i = 0; i < 2000; i++)
             {
-                Console.WriteLine(i.ToString());
+              //  Console.WriteLine(i.ToString());
                 if (i == 1999)
                 {
+                    
                     check2();
+                    delete2();
                 }
             }
-            delete2();
+            
         }
         public void check3()
         {
@@ -211,13 +215,15 @@ namespace support
             connection1.Close();
             for (int i = 0; i < 2000; i++)
             {
-                Console.WriteLine(i.ToString());
+               // Console.WriteLine(i.ToString());
                 if (i == 1999)
                 {
+                    
                     check3();
+                    delete3();
                 }
             }
-            delete3();
+            
         }
         private void delete1()
         {

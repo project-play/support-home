@@ -142,12 +142,25 @@ namespace support
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if () {
-
+            if (comboBox1.Text.ToString() == "rene") {
+                combobox = "rene";
+                checknews cn = new checknews();
+                cn.check();
             }
-           
-            checknews cn = new checknews();
-            cn.check();
+            if (comboBox1.Text.ToString() == "patrik")
+            {
+                combobox = "patrik";
+                checknews cn = new checknews();
+                cn.check2();
+            }
+            if (comboBox1.Text.ToString() == "pascal")
+            {
+                combobox = "pascal";
+                checknews cn = new checknews();
+                cn.check3();
+            }
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
