@@ -18,8 +18,10 @@ namespace support_chat
     public partial class Form1 : Form
     {
         private TcpClient client;
+        
         public StreamReader STR;
         public StreamWriter STW;
+       
         public string receive;
         public String text_to_send;
 
@@ -53,9 +55,12 @@ namespace support_chat
             TcpListener listener = new TcpListener(IPAddress.Any, int.Parse(textBox6.Text));
             listener.Start();
             client = listener.AcceptTcpClient();
+            
             STR = new StreamReader(client.GetStream());
             STW = new StreamWriter(client.GetStream());
+            
             STW.AutoFlush = true;
+           
             backgroundWorker1.RunWorkerAsync();                   // starte bekommen der Daten im Hintergrund
             backgroundWorker2.WorkerSupportsCancellation = true; // Kann den thread abbrechen
 
@@ -69,6 +74,7 @@ namespace support_chat
                 try
                 {
                     receive = STR.ReadLine();
+                    
 
                     string bekommen = "Einer von uns : " + receive + "\n";
 
@@ -88,6 +94,7 @@ namespace support_chat
             if (client.Connected)
             {
                 STW.WriteLine(text_to_send);
+               
                 this.textBox2.Invoke(new MethodInvoker(delegate() { textBox2.AppendText("ME : " + text_to_send + "\n"); }));
 
             }
@@ -101,18 +108,21 @@ namespace support_chat
         private void button3_Click(object sender, EventArgs e)
         {
             client = new TcpClient();
+          
             IPEndPoint IP_End = new IPEndPoint(IPAddress.Parse(textBox4.Text), int.Parse(textBox5.Text.ToString()));
 
             try
             {
                 client.Connect(IP_End);
+                
                 if (client.Connected)
                 {
                     textBox2.AppendText("Zum Server verbunden" + "\n");
                     STW = new StreamWriter(client.GetStream());
                     STR = new StreamReader(client.GetStream());
+                  
                     STW.AutoFlush = true;
-
+                  
                     backgroundWorker1.RunWorkerAsync();                   // starte bekommen der Daten im Hintergrund
                     backgroundWorker2.WorkerSupportsCancellation = true; // Kann den thread abbrechen
                 }
@@ -133,6 +143,11 @@ namespace support_chat
 
             }
             textBox1.Text = "";
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
