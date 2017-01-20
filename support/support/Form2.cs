@@ -15,7 +15,7 @@ namespace support
 {
     public partial class Form2 : Form
     {
-        string myConnectionString = "server=127.0.0.1;uid=rene;" +
+        string myConnectionString = "server=192.168.2.106;uid=rene;" +
                 "pwd=rene;database=support;";
        public string combobox;
 
@@ -117,6 +117,7 @@ namespace support
                             str7 = str7 + reader.GetValue(i).ToString() + ", ";
                         }
                         Console.WriteLine(str7);
+                        connection.Close();
                     }
                     
                 }

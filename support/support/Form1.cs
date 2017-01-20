@@ -15,7 +15,7 @@ namespace support
     public partial class Form1 : Form
     {
 
-        string myConnectionString = "server=127.0.0.1;uid=rene;" +
+        string myConnectionString = "server=192.168.2.106;uid=rene;" +
                 "pwd=rene;database=support;";
 
 
@@ -83,6 +83,7 @@ namespace support
 
 
                 Console.Write(qry);
+                conn.Close();
             }
             catch (MySqlException ex)
             {
@@ -120,6 +121,8 @@ namespace support
                         flag = false;
                         base.Hide();
                         new Form2().ShowDialog();
+                        connection1.Close();
+                        return;
                     }
                     else
                     {
@@ -135,6 +138,7 @@ namespace support
             {
                 flag = false;
                 MessageBox.Show("Fehler beim Anmelden bitte \x00fcberpr\x00fcfe deine Login daten\noder deine Internetverbindung ansonste kontaktiere Ren\x00e9");
+                connection1.Close();
             }
             connection1.Close();
         }
