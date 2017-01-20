@@ -69,7 +69,11 @@ namespace support_chat
                 try
                 {
                     receive = STR.ReadLine();
-                    this.textBox2.Invoke(new MethodInvoker(delegate() { textBox2.AppendText("Einer von uns : " + receive + "\n"); }));
+
+                    string bekommen = "Einer von uns : " + receive + "\n";
+
+                    this.textBox2.Invoke(new MethodInvoker(delegate() { textBox2.AppendText(bekommen); }));
+                    MessageBox.Show(bekommen);
 
                 }
                 catch (Exception x)
