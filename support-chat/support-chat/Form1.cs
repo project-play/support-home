@@ -13,6 +13,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 
+
+
+
+/**
+Added by project-play
+on 08.06.2017
+**/
 namespace support_chat
 {
     public partial class Form1 : Form
